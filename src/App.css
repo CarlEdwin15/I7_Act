@@ -9,10 +9,6 @@ body {
   background: #f5f6fa;
 }
 
-.app {
-  min-height: 100vh;
-}
-
 /* NAVBAR */
 .navbar {
   height: 70px;
@@ -21,7 +17,24 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  border-bottom: 1px solid #eee;
+  border-bottom: none;
+  position: relative;
+}
+
+/* 3. Create the limited border using a pseudo-element */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Centers the line */
+
+  width: 1450px;
+  max-width: 100%;
+  /* Ensures it doesn't overflow on small screens */
+  height: 2px;
+  background-color: #D1D1D1;
 }
 
 .logo {
@@ -31,9 +44,10 @@ body {
 }
 
 .logo-text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 20px;
   font-weight: bold;
-  color: #332c80;
+  color: #54378F;
 }
 
 .nav-links {
@@ -47,20 +61,29 @@ body {
 }
 
 .nav-links .active {
-  color: #5b4dff;
+  color: #000000;
   font-weight: 600;
+}
+
+.nav-overview,
+.nav-calendar,
+.nav-habits,
+.nav-list {
+  width: 20px;
+  height: 20px;
 }
 
 .nav-icons {
   display: flex;
+  align-items: center;
   gap: 15px;
 }
 
-.icon-circle {
-  width: 35px;
-  height: 35px;
-  background: #eee;
-  border-radius: 50%;
+.nav-profile {
+  width: 33px;
+  height: 33px;
+  background-color: #D9D9D9;
+  border-radius: 6%;
 }
 
 /* MAIN GRID */
@@ -68,73 +91,202 @@ body {
   display: grid;
   grid-template-columns: 1.2fr 1.5fr 1fr;
   gap: 25px;
-  padding: 30px 40px;
+  padding: 15px;
+  /* remove top padding */
+}
+
+.app {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-bg-container {
+  background-image: url("./assets/Bg1.png");
+  /* Add a light background color to blend with the image */
+  background-color: rgba(223, 224, 255, 0.85);
+  /* faded/washed-out effect */
+  background-blend-mode: lighten;
+
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 377px;
+  z-index: -2;
+
+  border-bottom-right-radius: 44px;
+  margin-bottom: 90px;
 }
 
 /* LEFT PANEL */
+.left-panel {
+  display: grid;
+  flex-direction: column;
+  /* gap: 20px; */
+  width: 406px;
+  height: 560px;
+
+}
+
+/* ===== WELCOME CARD ===== */
+
 .welcome-card {
-  background: linear-gradient(135deg, #d8e1ff, #f8d9ff);
-  padding: 25px;
-  border-radius: 25px;
+  position: relative;
+  border-radius: 30px;
+  border-bottom-right-radius: 44px;
+  padding: 22px;
+  height: 280px;
+  margin-top: 0;
+
+}
+
+.welcome-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+}
+
+.welcome-content {
+  position: relative;
+}
+
+.welcome-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.cloud-icon {
+  width: 36px;
+  height: 39px;
 }
 
 .welcome-text {
-  font-size: 15px;
-  color: #1e006b;
-  font-weight: 500;
-
+  font-size: 14px;
+  color: #222;
+  font-weight: 400;
+  font-family: Poppins, sans-serif;
 }
+
+/* ===== PROGRESS SECTION ===== */
+
+/* ===== PROGRESS SECTION ===== */
+
+.progress-section {
+  position: relative;
+}
+
+/* Big Percentage */
+.percentage {
+  font-size: 100px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #54378F;
+  /* This matches your purple theme perfectly */
+  line-height: 1;
+  opacity: 0.9;
+  /* Optional: makes it look more integrated */
+}
+
+/* Position the % sign properly */
+.percentage-sign {
+  font-size: 40px;
+  position: relative;
+  top: -45px;
+}
+
+/* ===== FLOATING PROGRESS CARD (FIXED POSITION) ===== */
 
 .progress-card {
+  position: absolute;
+  top: 60%;
+  right: 25px;
+  left: 226px;
+  transform: translateY(-60%);
   background: white;
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 20px;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
+  padding: 20px 22px;
+  border-radius: 27px;
+  height: 133px;
+  width: 211px;
 
-.percentage {
-  font-size: 60px;
-  font-weight: bold;
-  color: #5b4dff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .muted {
+  font-size: 12px;
+  font-weight: bold;
   color: #777;
-  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.completed-count {
+  font-size: 38px;
+  margin: 8px 0;
+  color: #1e1e1e;
 }
 
 .progress-bar {
   height: 8px;
   background: #eee;
-  border-radius: 10px;
-  margin-top: 8px;
+  border-radius: 50px;
+  overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
   background: #ffb84d;
-  border-radius: 10px;
-  transition: width 0.3s ease;
+  border-radius: 50px;
+  transition: width 0.4s ease;
 }
 
+/* ===== STATS CARDS ===== */
+
 .stats {
-  margin-top: 25px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  height: 210px;
 }
 
 .stat-card {
-  padding: 20px;
-  border-radius: 20px;
+  padding: 27px;
+  border-radius: 25px;
   color: white;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 115px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+.stat-card.active {
+  outline: 3px solid white;
+  transform: scale(1.05);
+}
+
+.stat-card p {
+  font-size: 13px;
+  opacity: 0.9;
+  letter-spacing: 1px;
 }
 
 .stat-card h2 {
-  margin-top: 8px;
+  font-size: 40px;
+  margin-top: 10px;
 }
 
 .pink {
@@ -142,30 +294,79 @@ body {
 }
 
 .purple {
-  background: #5b4dff;
+  background: #54378F;
 }
 
 .orange {
   background: #ffb84d;
 }
 
+.green {
+  background: #4CAF50;
+}
+
 .empty {
-  background: #ddd;
+  background: #e5e5e5;
 }
 
 /* TASK LIST */
+/* ===== CENTER PANEL ===== */
+
 .center-panel {
-  color: #272727;
-  background: rgb(255, 255, 255);
-  padding: 25px;
-  border-radius: 25px;
+  padding: 10px 0;
+}
+
+.task-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1e1e1e;
+}
+
+/* Task List */
+.task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each Task Row */
+.task-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 0;
+  cursor: pointer;
+}
+
+/* Divider line */
+.task-divider {
+  height: 1px;
+  background: #e2e2e2;
+  width: 100%;
+}
+
+/* Completed task style */
+.task-row.completed .task-text {
+  text-decoration: line-through;
+  color: #b5b5b5;
+}
+
+/* Task text */
+.task-text {
+  font-size: 16px;
+  color: #2b2b2b;
 }
 
 .task {
   display: flex;
   gap: 10px;
   padding: 15px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .task.completed span {
@@ -173,11 +374,80 @@ body {
   color: #aaa;
 }
 
+/* Title Colors */
+.title-pink {
+  color: #ff5c8a;
+}
+
+.title-purple {
+  color: #54378F;
+}
+
+.title-yellow {
+  color: #ffb84d;
+}
+
+.title-green {
+  color: #4CAF50;
+}
+
+/* ===== CUSTOM CHECKBOX STYLE ===== */
+
+/* Remove default browser style */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 0;
+  background-color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked {
+  background-color: #FFBD59;
+  border-color: #FFBD59;
+}
+
+/* Checkmark */
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+}
+
+.task span {
+  font-size: 16px;
+  align-items: center;
+}
+
 /* FORM */
 .right-panel {
-  background: white;
-  padding: 25px;
-  border-radius: 25px;
+  background: #FFFFFF;
+  padding: 18px;
+  border-radius: 19px;
+  width: 367px;
+  /* height: 600px; */
+  max-width: 100%;
+}
+
+.right-panel label {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.right-panel label span {
+  color: red;
 }
 
 .right-panel form {
@@ -186,24 +456,103 @@ body {
 }
 
 .right-panel input {
-  padding: 10px;
+  padding: 8px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #333;
+}
+
+.right-panel textarea {
+  padding: 8px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  margin-bottom: 15px;
+  background-color: #ffffff;
+  color: #333;
+  resize: none;
+  margin-bottom: 5px;
+}
+
+.right-panel select {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  color: #333;
 }
 
 .create-btn {
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 12px;
-  background: #5b4dff;
-  color: white;
+  background: #54378F;
+  color: #ffffff;
   cursor: pointer;
   transition: 0.2s;
+  margin-top: 10px;
 }
 
 .create-btn:hover {
   opacity: 0.9;
+}
+
+/* ===== REPEAT DAYS DESIGN ===== */
+
+.repeat-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.repeat-item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  color: #565656;
+  background: #ffffff;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 11px;
+}
+
+/* Hover effect */
+.repeat-item:hover {
+  border-color: #54378F;
+}
+
+/* When checkbox is checked → highlight box */
+.repeat-item input:checked+span {
+  font-weight: 600;
+}
+
+.repeat-item:has(input:checked) {
+  border-color: #54378F;
+  background-color: #f3f0fb;
+}
+
+/* ===== EMPTY TASK STATE ===== */
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state p {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.empty-state span {
+  font-size: 14px;
+  color: #aaa;
 }
 
 /* RESPONSIVE */
