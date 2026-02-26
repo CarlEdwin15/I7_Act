@@ -65,7 +65,7 @@ function TaskForm({ addTask }) {
           Description <span>*</span>
         </label>
         <textarea
-          placeholder="Enter decription..."
+          placeholder="Enter description..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required

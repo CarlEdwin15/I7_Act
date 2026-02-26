@@ -89,9 +89,9 @@ body {
 /* MAIN GRID */
 .main {
   display: grid;
-  grid-template-columns: 1.2fr 1.5fr 1fr;
+  grid-template-columns: 1.05fr 1.5fr 1fr;
   gap: 25px;
-  padding: 15px;
+  padding: 20px;
   /* remove top padding */
 }
 
@@ -102,17 +102,17 @@ body {
 }
 
 .welcome-bg-container {
-  background-image: url("./assets/Bg1.png");
+  background: url("./assets/Bg1.png");
   /* Add a light background color to blend with the image */
-  background-color: rgba(223, 224, 255, 0.85);
-  /* faded/washed-out effect */
+  background-color: #cce0fe;
+  /* faded/washed-out effect bbd0f5*/
   background-blend-mode: lighten;
 
   background-size: cover;
   position: absolute;
   top: 0;
   left: 0;
-  width: 420px;
+  width: 405px;
   height: 377px;
   z-index: -2;
 
@@ -122,9 +122,9 @@ body {
 
 /* LEFT PANEL */
 .left-panel {
-  display: grid;
+  display: flex;
   flex-direction: column;
-  /* gap: 20px; */
+  gap: 25px;
   width: 406px;
   height: 560px;
 
@@ -179,19 +179,18 @@ body {
 /* ===== PROGRESS SECTION ===== */
 
 .progress-section {
-  position: relative;
+  position: absolute;
 }
 
 /* Big Percentage */
 .percentage {
+  position: relative;
   font-size: 100px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: #54378F;
-  /* This matches your purple theme perfectly */
   line-height: 1;
-  opacity: 0.9;
-  /* Optional: makes it look more integrated */
+  margin-left: -20px;
 }
 
 /* Position the % sign properly */
@@ -207,10 +206,10 @@ body {
   position: absolute;
   top: 60%;
   right: 25px;
-  left: 226px;
+  left: 195px;
   transform: translateY(-60%);
   background: white;
-  padding: 20px 22px;
+  padding: 15px 27px;
   border-radius: 27px;
   height: 133px;
   width: 211px;
@@ -219,15 +218,15 @@ body {
 }
 
 .muted {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   color: #777;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .completed-count {
   font-size: 38px;
-  margin: 8px 0;
+  margin: 1px 0 5px 0;
   color: #1e1e1e;
 }
 
@@ -248,22 +247,22 @@ body {
 /* ===== STATS CARDS ===== */
 
 .stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   height: 210px;
 }
 
 .stat-card {
   padding: 27px;
-  border-radius: 25px;
+  border-radius: 14px;
   color: white;
   font-weight: 600;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 115px;
-  width: 100%;
+  width: 180px;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -274,7 +273,7 @@ body {
 }
 
 .stat-card.active {
-  outline: 3px solid white;
+  outline: 3px solid rgb(0, 229, 255);
   transform: scale(1.05);
 }
 
@@ -286,7 +285,7 @@ body {
 
 .stat-card h2 {
   font-size: 40px;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .pink {
@@ -313,7 +312,10 @@ body {
 /* ===== CENTER PANEL ===== */
 
 .center-panel {
-  padding: 10px 0;
+  display: grid;
+  align-content: start;
+  width: 100%;
+  max-width: 600px;
 }
 
 .task-title {
@@ -327,6 +329,14 @@ body {
 .task-list {
   display: flex;
   flex-direction: column;
+  max-height: 420px;
+  /* control visible height */
+  overflow-y: auto;
+  /* vertical scroll */
+  overflow-x: hidden;
+  /* prevent horizontal stretch */
+  padding-right: 8px;
+  /* space for scrollbar */
 }
 
 /* Each Task Row */
@@ -338,9 +348,49 @@ body {
 .task-item {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
   padding: 18px 0;
   cursor: pointer;
+  min-width: 0;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  color: #333;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+
+  width: 100%;
+  max-width: 600px;
+  max-height: 100vh;
+  overflow-y: auto;
+  word-break: break-word;
+  white-space: pre-wrap;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin-bottom: 8px;
+}
+
+.modal-content button {
+  margin-top: 15px;
 }
 
 /* Divider line */
@@ -360,6 +410,24 @@ body {
 .task-text {
   font-size: 16px;
   color: #2b2b2b;
+  cursor: pointer;
+  padding: 12px;
+
+  flex: 1;
+  /* allow shrinking */
+  min-width: 0;
+  /* critical for ellipsis */
+  white-space: nowrap;
+  /* keep on one line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disabled-text {
+  text-decoration: line-through;
+  color: #BBA4A4;
+  pointer-events: none;
+  /* fully disables clicking */
 }
 
 .task {
@@ -391,38 +459,56 @@ body {
   color: #4CAF50;
 }
 
-/* ===== CUSTOM CHECKBOX STYLE ===== */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
+}
 
-/* Remove default browser style */
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #ccc;
-  border-radius: 0;
-  background-color: #ffffff;
+.confirm-btn {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  position: relative;
+}
+
+.confirm-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* FontAwesome checkbox container */
+.fa-checkbox {
+  font-size: 20px;
+  cursor: pointer;
+  color: #D7D7D7;
+  /* default empty box color */
   transition: all 0.2s ease;
 }
 
-/* Checked state */
-input[type="checkbox"]:checked {
-  background-color: #FFBD59;
-  border-color: #FFBD59;
+/* Hover effect */
+.fa-checkbox:hover {
+  transform: scale(1.2);
 }
 
-/* Checkmark */
-input[type="checkbox"]:checked::after {
-  content: "✓";
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -55%);
+.fa-checkbox svg {
+  transition: color 0.2s ease;
+}
+
+/* Default unchecked */
+.fa-checkbox {
+  font-size: 20px;
+  cursor: pointer;
+  color: #D7D7D7;
+  transition: all 0.2s ease;
+}
+
+/* Make the check itself white */
+.fa-checkbox.checked svg path:last-child {
+  fill: #FFBD59;
 }
 
 .task span {
@@ -465,7 +551,7 @@ input[type="checkbox"]:checked::after {
 
 .right-panel textarea {
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #ddd;
   background-color: #ffffff;
   color: #333;
@@ -475,17 +561,27 @@ input[type="checkbox"]:checked::after {
 
 .right-panel select {
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #ddd;
   margin-bottom: 5px;
   background-color: #ffffff;
   color: #333;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
 }
 
 .create-btn {
+  font-size: 13px;
   padding: 10px;
   border: none;
-  border-radius: 12px;
+  border-radius: 6px;
   background: #54378F;
   color: #ffffff;
   cursor: pointer;
